@@ -432,15 +432,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QFCE3TAQXQ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HR6V4MC5N2;
 				INFOPLIST_FILE = GXNetworkToolbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ChowQ.GXNetworkToolbox;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.GXNetworkToolbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "nebula-develop-profile";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,15 +451,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QFCE3TAQXQ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HR6V4MC5N2;
 				INFOPLIST_FILE = GXNetworkToolbox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ChowQ.GXNetworkToolbox;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.GXNetworkToolbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "nebula-develop-profile";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -12,14 +12,14 @@ class ViewController: UIViewController {
     
     private var fileHandle: FileHandle!
     private var appInfoFile: String!
-
-    // rtmp url
+    
+    // iperf commind
     let cmdLineText = CustomField()
     let copyRight = UITextField()
     let logView = UITextView()
     let backgroundLayer = CAGradientLayer()
     
-    var logString: String = "gggggg" {
+    var logString: String = "" {
         didSet {
             DispatchQueue.main.async(execute: {
                 self.logView.text = self.logString
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // publish button
+    // start button
     var startBtn: UIButton = {
         let button: UIButton = UIButton()
         let backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
@@ -45,39 +45,8 @@ class ViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
-    
-
-    
-    // video vitrate label
-//    var videoBitrateLabel:UILabel = {
-//        let label:UILabel = UILabel()
-//        label.textColor = UIColor.white
-//        return label
-//    }()
-
-
-    // camera choose.
-    let cameraChooseSegment: UISegmentedControl = {
-        let segment:UISegmentedControl = UISegmentedControl(items: ["Back", "Front"])
-        segment.tintColor = UIColor.white
-        segment.selectedSegmentIndex = 0
-        return segment
-    }()
-    
-    
-    // MARK: Video Bitrate Change.
-    func onSliderValueChanged(slider: UISlider) {
-//        if slider == videoBitrateSlider {
-//            let videoStep: Float = 10
-//            let roundedValue = round(slider.value / videoStep) * videoStep
-//            slider.value = roundedValue
-//            // Do something else with the value
-////            videoBitrateLabel.text = "video \(Int(slider.value))/kbps"
-////            publishClient.videoEncoderSettings["bitrate"] = slider.value * 1000
-//        }
-    }
-    
-    // MARK: Pulish Video
+ 
+    // MARK:
     @objc func onStartButtonClicked(sender: UIButton) {
         if (sender.isSelected) {
             UIApplication.shared.isIdleTimerDisabled = false
@@ -85,7 +54,6 @@ class ViewController: UIViewController {
             startBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
             cmdLineText.isHidden = false
         } else {
-            // 开始推流 启用屏幕常亮
             UIApplication.shared.isIdleTimerDisabled = true
             sender.setTitle("■", for: .normal)
             startBtn.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.6)
@@ -94,37 +62,24 @@ class ViewController: UIViewController {
         sender.isSelected = !sender.isSelected
     }
     
-    // MARK: Pulish Video
+    // MARK:
     @objc func onLogBtnClicked(sender: UIButton) {
         if (sender.isSelected) {
-            self.logString = "sdfsdfsdfsd"
+            self.logString = ""
             logBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
             sender.setTitle("log", for: .normal)
             logView.isHidden = true
             
         } else {
-            self.logString  = "vvvvvv"
+            self.logString  = ""
             sender.setTitle("×", for: .normal)
             logBtn.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
             logView.isHidden = false
         }
         sender.isSelected = !sender.isSelected
+    }
         
-    }
-    
-    // MARK: Camera Choose
-    @objc func onCameraChanged(segment: UISegmentedControl) {
-//        switch segment.selectedSegmentIndex {
-////        case 0:
-//////            publishClient.devicePosition = .Back
-////
-////        case 1:
-//////            publishClient.devicePosition = .Front
-//        default:
-//            break
-//        }
-    }
-    
+ 
     func initAppInfo() {
         let documentDir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         appInfoFile = documentDir[0] + "/info.plist"
@@ -133,20 +88,7 @@ class ViewController: UIViewController {
             FileManager.default.createFile(atPath: appInfoFile, contents: nil, attributes: nil)
         }
     }
-    
-    private func uiInit() {
-        // view.addSubview(background)
-//        view.layer.addSublayer(backgroundLayer)
-//        view.addSubview(rtmpUrlText)
-//        view.addSubview(logButton)
-
-//        view.addSubview(publishButton)
-        view.addSubview(cameraChooseSegment)
-////        view.addSubview(videoBitrateLabel)
-////        view.addSubview(videoBitrateSlider)
-//        view.addSubview(copyRight)
-    }
-    
+ 
     private func initSubview() {
         backgroundLayer.frame = view.bounds
         backgroundLayer.colors = [UIColor.purple.cgColor, UIColor.red.cgColor]
@@ -160,21 +102,8 @@ class ViewController: UIViewController {
         cmdLineText.textColor = UIColor.white
         cmdLineText.clearButtonMode = .whileEditing
         cmdLineText.textAlignment = .center
+        cmdLineText.text = "iperf3 -u "
         
-        
-        // view segment
-        cameraChooseSegment.frame = CGRect(x: view.bounds.width - 170 , y: 50, width: 133, height: 30)
-        cameraChooseSegment.addTarget(self, action: #selector(ViewController.onCameraChanged(segment:)), for: .valueChanged)
-        
-//        // video Bitrate Label
-//        videoBitrateLabel.text = "video \(Int(videoBitrateSlider.value))/kbps"
-//        videoBitrateLabel.frame = CGRect(x: view.frame.width - 150 - 60, y: view.frame.height - 50 * 2, width: 160, height: 44)
-//
-        // video Bitrate Slider
-//        videoBitrateSlider.frame = CGRect(x: 20, y: view.frame.height - 60 - 15, width: view.frame.width - 50 - 60, height: 40)
-//        videoBitrateSlider.addTarget(self, action: #selector(ViewController.onSliderValueChanged(_:)), forControlEvents: .ValueChanged)
-//        videoBitrateSlider.value = Float(300)
-//
         // start btn
         startBtn.frame = CGRect(x: view.bounds.width - 50 - 20, y: view.bounds.height - 60 - 20, width: 50, height: 50)
         startBtn.layer.cornerRadius = 25.0
@@ -191,10 +120,14 @@ class ViewController: UIViewController {
         logBtn.addTarget(self, action: #selector(ViewController.onLogBtnClicked(sender:)), for: .touchUpInside)
         
         // copyright info.
-        copyRight.frame = CGRect(x: view.frame.width/2 - 75 , y: view.bounds.height - 30, width: 150, height: 15)
+        copyRight.frame = CGRect(x: view.frame.width/2 - 55,
+                                 y: view.bounds.height - 30,
+                                 width: 110,
+                                 height: 15)
         copyRight.textColor = UIColor.white
         copyRight.font = UIFont(name: "Arial", size: 10)
-        
+        copyRight.text = "©2016-2018 gezhaoyou"
+       
         
         view.layer.addSublayer(backgroundLayer)
         view.addSubview(cmdLineText)
@@ -204,22 +137,13 @@ class ViewController: UIViewController {
         logView.isHidden = true
         
         view.addSubview(startBtn)
-        view.addSubview(cameraChooseSegment)
-        //        view.addSubview(videoBitrateLabel)
-        //        view.addSubview(videoBitrateSlider)
         view.addSubview(copyRight)
     }
-    
-    private func Init() {
-        copyRight.text = "©2016-2018 ChowQ"
-        cmdLineText.text = "iperf3 -u "
-       
-    }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initAppInfo()
-        self.Init()
         self.initSubview()
     }
     
@@ -229,7 +153,6 @@ class ViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        // 相机预览的图像在旋转屏幕的时候，必须在这个函数中重新绘制，否则会出现app界面空间布局错位的情况。
         self.initSubview()
     }
 }
@@ -238,6 +161,9 @@ class CustomField: UITextField {
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         context!.setFillColor(UIColor.green.cgColor)
-        context!.fill(CGRect(x: 0, y: self.frame.height - 0.5, width: self.frame.width - 0.5, height: 0.5 ))
+        context!.fill(CGRect(x: 0,
+                             y: self.frame.height - 0.5,
+                         width: self.frame.width - 0.5,
+                        height: 0.5 ))
     }
 }
