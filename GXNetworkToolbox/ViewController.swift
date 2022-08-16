@@ -126,9 +126,11 @@ class ViewController: UIViewController {
                                  height: 15)
         copyRight.textColor = UIColor.white
         copyRight.font = UIFont(name: "Arial", size: 10)
-        copyRight.text = "©2016-2018 gezhaoyou"
+        let date = Date()
+        let dformatter = DateFormatter()
+        dformatter.dateFormat="yyyy" // "yyyy年MM月dd日HH:mm:ss"
+        copyRight.text = String(format:"©2016-%@ gezhaoyou", dformatter.string(from: date))
        
-        
         view.layer.addSublayer(backgroundLayer)
         view.addSubview(cmdLineText)
         view.addSubview(logBtn)
